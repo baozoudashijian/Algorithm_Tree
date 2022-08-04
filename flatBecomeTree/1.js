@@ -12,12 +12,15 @@ const array = [
 ];
 
 const array2tree = arr => {
+    arr.shift()
     const tree = {}
     const queue = [...arr]
-    queue[0].name = '100'
-    console.log(queue)
-    console.log(arr)
+    while(queue.length > 0) {
+        const item = queue.shift()
+        console.log('queue:', queue)
+    }
+    console.log('arr:', arr)
 }
 
 array2tree(array)
-console.log(array)
+console.log('array:', array)
