@@ -12,15 +12,57 @@ const array = [
 ];
 
 const array2tree = arr => {
-    arr.shift()
     const tree = {}
     const queue = [...arr]
-    while(queue.length > 0) {
+    while (queue.length > 0) {
         const item = queue.shift()
-        console.log('queue:', queue)
+        if (insert(tree, item)) {
+            console.log(`插入成功 ${item.name}`)
+        } else {
+            console.log(`插入失败，放到队尾 ${item.name}，继续看下一个`)
+            queue.push(item)
+        }
     }
-    console.log('arr:', arr)
+    return tree
 }
 
-array2tree(array)
-console.log('array:', array)
+const insert = (tree, item) => {
+    // 如果是顶层节点
+    if (item.parent === null) {
+        const newNode = createNode(item)
+        Object.assign(tree, newNode)
+        return true;
+    } else {
+        const parentNode = findNodeById(tree, item.parent)
+        if(parentNode) {
+            const newNode = createNode(item)
+            parentNode.children.push(newNode)
+            return true
+        }else{
+            return false
+        }
+    }
+}
+
+const findNodeById = (tree, id) => {
+    if(tree.id === id) {
+        return tree
+    } else if(tree.children) {
+        const { children } = tree
+        for(let i=0; i<children.length; i++) {
+            const result = findNodeById(children[i], id)
+            if(result) return result
+        }
+    } else {
+        return null
+    }
+}
+
+const createNode = item => {
+    return {
+        ...item,
+        children: []
+    }
+}
+
+console.log(array2tree(array))
