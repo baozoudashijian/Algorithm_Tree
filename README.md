@@ -8,3 +8,4 @@ flatBecomeTree/1.js
 1. binaryTree/1.js 先根遍历
 2. binaryTree/2.js 中根遍历
 3. binaryTree/3.js 后根遍历
+4. binaryTree/4.js 中根遍历不使用递归
